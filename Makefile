@@ -1,8 +1,8 @@
-.PHONY: default all build run fmt test vet clean
+.PHONY: default all build run fmt test lint clean
 
 default: all
 
-all: fmt build vet test run
+all: fmt build lint test run
 
 build:
 	go build -o leetcode .
@@ -16,8 +16,8 @@ fmt:
 test:
 	go test ./...
 
-vet:
-	go vet ./...
+lint:
+	go run github.com/golangci/golangci-lint/v2/cmd/golangci-lint@v2.14.0 run ./...
 
 clean:
 	rm -f leetcode
