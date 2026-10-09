@@ -12,8 +12,8 @@ func FindRepeatedDnaSequences(s string) []string {
 
 	var hash uint32 = 0
 
-	for _, ch := range s[:10] {
-		hash = (hash << 2) | encodeChar(ch)
+	for i := range 10 {
+		hash = (hash << 2) | encodeByte(s[i])
 	}
 
 	hashToStr := make(map[uint32]string)
@@ -23,7 +23,7 @@ func FindRepeatedDnaSequences(s string) []string {
 
 	for start, last := 1, 10; last < len(s); start, last = start+1, last+1 {
 
-		hash = ((hash << 2) | encodeChar(rune(s[last]))) & mask
+		hash = ((hash << 2) | encodeByte(s[last])) & mask
 
 		cur_str := s[start : last+1]
 
@@ -48,7 +48,7 @@ func FindRepeatedDnaSequences(s string) []string {
 // C => 01, 1
 // T => 10, 2
 // G => 11, 3
-func encodeChar(ch rune) uint32 {
+func encodeByte(ch byte) uint32 {
 	switch ch {
 	case 'A':
 		return 0
