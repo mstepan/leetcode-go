@@ -2,8 +2,10 @@ package medium
 
 const mask uint32 = (1 << 20) - 1
 
+// 187. Repeated DNA Sequences
+//
+// https://leetcode.com/problems/repeated-dna-sequences/description/
 func FindRepeatedDnaSequences(s string) []string {
-
 	if len(s) < 10 {
 		return nil
 	}
@@ -60,39 +62,3 @@ func encodeChar(ch rune) uint32 {
 		panic("Unexpected character found")
 	}
 }
-
-// func decode(hash uint32) string {
-
-// 	var decoded_str []rune
-
-// 	for i := 0; i < 10; i++ {
-// 		decoded_str = append(decoded_str, decodeChar(hash&0x03))
-// 		hash >>= 2
-// 	}
-
-// 	reverse(decoded_str)
-
-// 	return string(decoded_str)
-// }
-
-// func decodeChar(value uint32) rune {
-// 	switch value {
-// 	case 0:
-// 		return 'A'
-// 	case 1:
-// 		return 'C'
-// 	case 2:
-// 		return 'T'
-// 	case 3:
-// 		return 'G'
-// 	default:
-// 		panic("Can't decode value to characeter")
-// 	}
-// }
-
-// func reverse(chars []rune) {
-// 	for i, j := 0, len(chars)-1; i < j; i, j = i+1, j-1 {
-// 		chars[i], chars[j] = chars[j], chars[i]
-
-// 	}
-// }

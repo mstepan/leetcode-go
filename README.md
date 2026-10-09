@@ -23,10 +23,10 @@ runs static checks and tests, and executes the example in `main.go`.
 
 | Command | Action |
 | --- | --- |
-| `make` or `make all` | Run `fmt`, `build`, `vet`, `test`, and `run` |
+| `make` or `make all` | Run `fmt`, `build`, `lint`, `test`, and `run` |
 | `make fmt` | Format all Go packages with `go fmt ./...` |
 | `make build` | Build the root package into `./leetcode` |
-| `make vet` | Check all packages with `go vet ./...` |
+| `make lint` | Check all packages with golangci-lint v2.14.0 |
 | `make test` | Run tests in all packages with `go test ./...` |
 | `make run` | Run the example with `go run .` |
 | `make clean` | Remove the `leetcode` executable |
@@ -52,7 +52,15 @@ go run .
 
 The current example calls `medium.FindRepeatedDnaSequences` to find repeated
 10-character sequences in a DNA string. Result order is unspecified.
-The test file currently contains only a package declaration; no tests are implemented yet.
+Unit tests cover repeated sequences and short or empty input.
+
+## GitHub Actions
+
+The workflow in `.github/workflows/leetcode-go-ci.yaml` runs on pushes and pull
+requests, uses the Go version from `go.mod`, and runs four steps in order:
+`fmt`, `build`, `lint`, and `test`. Each step uses its corresponding Makefile
+target. The formatting step fails if `make fmt` changes any Go files; run
+`make fmt` locally and commit the formatted code before pushing.
 
 ## Debugging in VS Code
 
