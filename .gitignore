@@ -1,0 +1,17 @@
+# Build outputs
+/leetcode
+/bin/
+*.exe
+*.exe~
+*.test
+
+# Coverage and profiling artifacts
+*.out
+*.prof
+/coverage/
+
+# VS Code Go debugger binaries
+__debug_bin*
+
+# macOS metadata
+.DS_Store
