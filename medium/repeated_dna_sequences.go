@@ -5,6 +5,8 @@ const mask uint32 = (1 << 20) - 1
 // 187. Repeated DNA Sequences
 //
 // https://leetcode.com/problems/repeated-dna-sequences/description/
+// time: O(N)
+// space: O(1)
 func FindRepeatedDnaSequences(s string) []string {
 	if len(s) < 10 {
 		return nil
@@ -16,29 +18,24 @@ func FindRepeatedDnaSequences(s string) []string {
 		hash = (hash << 2) | encodeByte(s[i])
 	}
 
-	hashToStr := make(map[uint32]string)
-	hashToStr[hash] = s[0:10]
+	// false = seen once; true = already added to result
+	seen := make(map[uint32]bool)
+	seen[hash] = false
 
-	duplicatedSubstrings := make(map[string]struct{})
+	var result []string
 
 	for start, last := 1, 10; last < len(s); start, last = start+1, last+1 {
 
 		hash = ((hash << 2) | encodeByte(s[last])) & mask
 
-		cur_str := s[start : last+1]
-
-		if _, exists := hashToStr[hash]; exists {
-			duplicatedSubstrings[cur_str] = struct{}{}
-		} else {
-			hashToStr[hash] = cur_str
+		reported, exists := seen[hash]
+		if !exists {
+			seen[hash] = false
+		} else if !reported {
+			result = append(result, s[start:last+1])
+			seen[hash] = true
 		}
 
-	}
-
-	var result []string
-
-	for single_sub := range duplicatedSubstrings {
-		result = append(result, single_sub)
 	}
 
 	return result
